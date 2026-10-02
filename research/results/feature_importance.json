@@ -1,0 +1,34 @@
+[
+  {
+    "feature": "path_length",
+    "importance": 0.1896
+  },
+  {
+    "feature": "num_subdomains",
+    "importance": 0.1195
+  },
+  {
+    "feature": "is_https",
+    "importance": 0.1014
+  },
+  {
+    "feature": "digit_ratio",
+    "importance": 0.1014
+  },
+  {
+    "feature": "hostname_length",
+    "importance": 0.0675
+  },
+  {
+    "feature": "num_digits",
+    "importance": 0.0673
+  },
+  {
+    "feature": "url_entropy",
+    "importance": 0.0607
+  },
+  {
+    "feature": "num_slashes",
+    "importance": 0.0547
+  }
+]

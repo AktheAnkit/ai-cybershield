@@ -1,0 +1,20 @@
+fastapi==0.115.0
+uvicorn[standard]==0.30.6
+jinja2==3.1.4
+python-multipart==0.0.9
+sqlalchemy==2.0.35
+bcrypt==5.0.0
+python-jose[cryptography]==3.3.0
+python-dotenv==1.0.1
+zxcvbn==4.4.28
+requests==2.32.3
+reportlab==4.2.5
+# numpy and scikit-learn are required transitively by xgboost's XGBClassifier
+# itself (its sklearn-compatible wrapper API needs sklearn installed) — not
+# removable. pandas, however, is NOT needed to run the app (only used in
+# research/train.py for training/reproducing the model) and is deliberately
+# left out here to keep the live app's dependency footprint smaller.
+numpy
+scikit-learn
+xgboost
+pydantic-settings==2.5.2

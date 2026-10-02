@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}SSL Checker - CyberShield{% endblock %}
+{% block content %}
+<h2 class="mb-4">SSL Certificate Checker</h2>
+<div class="card p-4 mb-4">
+  <form method="post" action="/tools/ssl">
+    <div class="mb-3">
+      <label class="form-label">Domain (e.g. example.com)</label>
+      <input class="form-control" name="hostname" required placeholder="example.com">
+    </div>
+    <button class="btn btn-primary" type="submit">Check certificate</button>
+  </form>
+</div>
+
+{% if result %}
+  {% if result.error %}
+    <div class="alert alert-danger">{{ result.error }}</div>
+  {% else %}
+  <div class="card p-4">
+    <h4>{{ result.hostname }}</h4>
+    <ul class="list-unstyled">
+      <li><strong>Issuer:</strong> {{ result.issuer }}</li>
+      <li><strong>Valid until:</strong> {{ result.valid_until }} ({{ result.days_left }} days left)</li>
+      <li><strong>Protocol:</strong> {{ result.protocol }}</li>
+    </ul>
+    {% for f in result.findings %}
+    <span class="badge badge-{{ f.severity }} me-2 mb-1">{{ f.severity | upper }}: {{ f.message }}</span>
+    {% endfor %}
+  </div>
+  {% endif %}
+{% endif %}
+{% endblock %}

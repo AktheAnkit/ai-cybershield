@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: cybershield
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt -r requirements-postgres.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ACCESS_TOKEN_EXPIRE_MINUTES
+        value: 120
+      - key: DATABASE_URL
+        fromDatabase:
+          name: cybershield-db
+          property: connectionString
+      - key: OLLAMA_BASE_URL
+        value: http://localhost:11434
+      - key: OLLAMA_MODEL
+        value: llama3.2
+
+databases:
+  - name: cybershield-db
+    plan: free

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Website Scanner - CyberShield{% endblock %}
+{% block content %}
+<h2 class="mb-4">Website Security Scanner</h2>
+<div class="card p-4 mb-4">
+  <form method="post" action="/tools/website">
+    <div class="mb-3">
+      <label class="form-label">Website URL</label>
+      <input class="form-control" name="url" required placeholder="https://example.com">
+      <div class="form-text">Passive checks only (exposed files, robots.txt, security.txt, cookie flags, server headers) — no port scanning or intrusive testing. Only scan sites you own or have permission to test.</div>
+    </div>
+    <button class="btn btn-primary" type="submit">Scan website</button>
+  </form>
+</div>
+
+{% if result %}
+  {% if result.error %}
+    <div class="alert alert-danger">{{ result.error }}</div>
+  {% else %}
+  <div class="card p-4">
+    <h4>{{ result.final_url }}</h4>
+    <p class="text-muted">
+      Server: {{ result.server_header or "not disclosed" }} ·
+      robots.txt: {{ "found" if result.has_robots_txt else "not found" }} ·
+      security.txt: {{ "found" if result.has_security_txt else "not found" }}
+    </p>
+
+    {% if result.findings %}
+    <h6 class="mt-3">Findings ({{ result.findings|length }})</h6>
+    {% for f in result.findings %}
+    <div class="mb-2">
+      <span class="badge badge-{{ f.severity }} me-2">{{ f.severity|upper }}</span>
+      {{ f.message }}
+    </div>
+    {% endfor %}
+    {% else %}
+    <p class="text-muted mb-0">No issues detected.</p>
+    {% endif %}
+  </div>
+  {% endif %}
+{% endif %}
+{% endblock %}

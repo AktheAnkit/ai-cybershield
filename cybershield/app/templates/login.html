@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Login - CyberShield{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-5">
+    <div class="card p-4">
+      <h3 class="mb-3">Login</h3>
+      {% if error %}<div class="alert alert-danger">{{ error }}</div>{% endif %}
+      <form method="post" action="/login">
+        <div class="mb-3">
+          <label class="form-label">Username</label>
+          <input class="form-control" name="username" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Password</label>
+          <input class="form-control" type="password" name="password" required>
+        </div>
+        <button class="btn btn-primary w-100" type="submit">Login</button>
+      </form>
+      <p class="mt-3 mb-0">No account? <a href="/register">Register</a></p>
+    </div>
+  </div>
+</div>
+{% endblock %}

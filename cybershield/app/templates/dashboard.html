@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}Dashboard - CyberShield{% endblock %}
+{% block content %}
+<h2 class="mb-4">Welcome back, {{ user.username }}</h2>
+
+<div class="row g-3 mb-4">
+  <div class="col-md-4">
+    <a href="/tools/advisor" class="card p-3 text-decoration-none text-reset h-100" style="border-color:#3b82f6;">
+      <h5>⭐ AI Risk Score &amp; Advisor</h5>
+      <p class="mb-0 text-muted">Full assessment + AI recommendations</p>
+    </a>
+  </div>
+  <div class="col-md-4">
+    <a href="/tools/password" class="card p-3 text-decoration-none text-reset h-100">
+      <h5>Password Analyzer</h5>
+      <p class="mb-0 text-muted">Check strength & crack time</p>
+    </a>
+  </div>
+  <div class="col-md-4">
+    <a href="/tools/ssl" class="card p-3 text-decoration-none text-reset h-100">
+      <h5>SSL Checker</h5>
+      <p class="mb-0 text-muted">Certificate validity & expiry</p>
+    </a>
+  </div>
+  <div class="col-md-4">
+    <a href="/tools/headers" class="card p-3 text-decoration-none text-reset h-100">
+      <h5>Headers Checker</h5>
+      <p class="mb-0 text-muted">Missing security headers</p>
+    </a>
+  </div>
+  <div class="col-md-4">
+    <a href="/tools/website" class="card p-3 text-decoration-none text-reset h-100">
+      <h5>Website Scanner</h5>
+      <p class="mb-0 text-muted">Exposed files, cookies, robots.txt</p>
+    </a>
+  </div>
+  <div class="col-md-4">
+    <a href="/tools/phishing" class="card p-3 text-decoration-none text-reset h-100">
+      <h5>AI Phishing Detector</h5>
+      <p class="mb-0 text-muted">XGBoost model, ~94% accuracy</p>
+    </a>
+  </div>
+</div>
+
+<h4 class="mb-3">Recent scans</h4>
+{% if scans %}
+<div class="table-responsive">
+<table class="table table-dark table-striped">
+  <thead><tr><th>Type</th><th>Target</th><th>When</th><th>Report</th></tr></thead>
+  <tbody>
+    {% for scan in scans %}
+    <tr>
+      <td>{{ scan.scan_type }}</td>
+      <td>{{ scan.target or "—" }}</td>
+      <td>{{ scan.created_at.strftime("%d %b %Y, %H:%M") }}</td>
+      <td><a href="/reports/{{ scan.id }}/pdf" class="btn btn-sm btn-outline-light">PDF</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+{% else %}
+<p class="text-muted">No scans yet — try one of the tools above.</p>
+{% endif %}
+{% endblock %}

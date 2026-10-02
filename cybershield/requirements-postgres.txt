@@ -1,0 +1,6 @@
+# Only needed when connecting to PostgreSQL (i.e. on Render/production).
+# Local development with the default SQLite database does NOT need this —
+# don't install this file unless you're deploying, or you're on Windows
+# and psycopg2-binary tries to build from source (which needs pg_config
+# and fails) instead of finding a prebuilt wheel for your Python version.
+psycopg2-binary
